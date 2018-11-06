@@ -22,8 +22,9 @@ def simple_forecast_by_key(key):
         'NYU': '40.729932,-73.998405',
         'W57': '40.765565,-73.979787',
     }
-    return simple_forecast(latlongs[key])
-
+    if key in latlongs.keys():
+        return simple_forecast(latlongs[key])
+    return {}
 
 if __name__ == '__main__':
     forecasts = []
