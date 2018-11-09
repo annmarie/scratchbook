@@ -1,4 +1,11 @@
+
 import praw
+
+import sh
+
+
+
+
 
 reddit_client = praw.Reddit(
         client_id='5yT0zVp43WD4Cw',
@@ -13,7 +20,7 @@ def get_subreddit(key, limit=100):
     limit = int(limit) + offset
     subreddit = reddit_client.subreddit(key)
     items = []
-    for submission in list(subreddit.hot(limit=limit))[3:]:
+    for submission in list(subreddit.hot(limit=limit)):
         url = 'https://i.reddit.com/r/'+subreddit.display_name 
         url += '/comments/'+submission.id
         items.append( submission.title + ' ' + url )
@@ -23,9 +30,11 @@ def display_subreddits(subreddits, limit=8):
     for subreddit in subreddits:
         print(subreddit)
         print('---')
-        items = get_subreddit( subreddit, limit ) 
+        items = get_subreddit(subreddit, limit)
         for item in items:
             print(item)
             print('---')
 
+if __name__ == '__main__':
+    display_subreddits(['popular', 'nyc'])
 
